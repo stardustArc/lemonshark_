@@ -6,5 +6,5 @@ a wireless split ergonomic keyboard with displays and RGB support :3
 - upload images/gallery
 - create v2 PCB
 - build guide?
-- user-mods (pytie's case)
+- user-mods (pyntie's case)
 - clean up ZMK config/readme/keymap
