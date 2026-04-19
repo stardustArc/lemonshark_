@@ -1,4 +1,4 @@
-![logo](lemonshark.png)
+![logo](/photos/lemonshark.png)
 # lemonshark
 
 a wireless split keyboard with per-key RGB and nice!view displays
