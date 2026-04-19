@@ -10,17 +10,17 @@ a wireless split keyboard with per-key RGB and nice!view displays
 - [ ] modify logo image to be cleaner (light mode jumpscare rn)
 - [ ]create v2 PCB
 - [ ]build guide?
-- [ ]user-mods (pyntie's case)
+- [ ]user-mods/cases (pyntie's case + plateless + OLED-compatible display cover)
 - [ ]clean up ZMK config/readme/keymap (need to add link to this)
 
 ---
 ![main photo](/photos/DSC_6457.JPG)
 
+▲ lemonshark with plateless case, RGB, and MBK glow
+
 ![left_RGB](/photos/DSC_6427.JPG)
 
 ![right_RGB](/photos/DSC_6435.JPG)
-
-▲ lemonshark with plateless case, RGB, and MBK glow
 
 ---
 ## features:
