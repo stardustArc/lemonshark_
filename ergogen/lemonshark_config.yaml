@@ -1,0 +1,582 @@
+units:
+  #choc
+  gx: cx
+  gy: cy
+  gpx: gx + 2
+  gpy: gy + 2
+  $default_width: cx
+  $default_height: cy
+  screwThreadRadius: 0.5
+  screwPCBRadius: 4.0
+points:
+  zones:
+    matrix:
+      anchor:
+        shift: [190, -150]
+      key:
+        padding: gy
+        spread: gx
+      columns:
+        math:
+          rows.home.shift: [-4, -1.2cy]
+          rows.bottom.skip: true
+          rows.home.skip: true
+          key.column_net: P009
+          key.mirror.column_net: P106 
+        inner:
+          rows.bottom.skip: true
+          key.column_net: P010
+          key.mirror.column_net: P104
+        index:
+          key.stagger: 5
+          key.column_net: P111
+          key.mirror.column_net: P011
+        middle:
+          key.stagger: 5
+          key.column_net: P113
+          key.mirror.column_net: P100
+        ring:
+          key.stagger: -5
+          key.column_net: P115 
+          key.mirror.column_net: P024
+        pinky:
+          key.stagger: -8
+          key.column_net: P002
+          key.mirror.column_net: P022
+        outer:
+          key.column_net: P029
+          key.mirror.column_net: P115
+      rows:
+        #mod:
+          #row_net: P024
+        bottom:
+          row_net: P100
+          mirror.row_net: P113 
+        home:
+          row_net: P011
+          mirror.row_net: P111
+        top:
+          row_net: P104
+          mirror.row_net: P010
+        num:
+          row_net: P106
+          mirror.row_net: P009
+    thumb:
+      anchor:
+        ref: matrix_inner_bottom
+        rotate: 45
+        shift: [-19, -35]
+      key:
+        padding: gy
+        spread: gx
+      #columns:
+        #left:
+          #key.row_net: P009
+        #right:
+          #key.row_net: P010
+      #rows:
+        #mod:
+          #column_net: P104
+      columns:
+        space:
+          key.rotate: -90
+          key.width: 1.5cx
+          key.shift: [0, 0.25cx]
+          key.row_net: P011
+          key.column_net: P009
+          key.mirror.row_net: P111
+          key.mirror.column_net: P106
+        left:
+          key.rotate: -20
+          key.shift: [2.5, -3]
+          key.row_net: P100
+          key.column_net: P009
+          key.mirror.row_net: P113
+          key.mirror.column_net: P106
+        right:
+          key.rotate: -40
+          key.shift: [4,-10.5]
+          key.row_net: P100
+          key.column_net: P010
+          key.mirror.row_net: P113
+          key.mirror.column_net: P104
+      rows:
+        mod:
+    #space:
+      #anchor:
+        #ref: thumb_right_mod
+        #shift: [-4, -19]
+        
+      #key:
+        #padding: gy
+        #spread: gx
+      #columns:
+        #space:
+          #key.width: 1.5cx
+          #key.column_net: P009
+          #key.rotate: 5
+      #rows:
+        #space:
+          #row_net: P024
+   
+
+  #rotate: 10
+  #mirror: &mirror
+    #ref: space_space_space
+    #distance: -120
+
+  mirror: &mirror
+    ref: matrix_math_num
+    distance: -3gx
+
+outlines:
+  raw:
+    - what: rectangle
+      where: true
+      size: [gpx, gpy]
+  keys:
+    - what: rectangle
+      where: true
+      size: [gx-0.5, gy-0.5]
+  board:
+    - what: polygon
+      operation: stack
+      points:
+        - ref: matrix_outer_num
+          shift: [0.5gpx, 0.5gpy]
+        - ref: matrix_pinky_num
+          shift: [ 0.5gpx, 0.5gpy]
+        - ref: matrix_middle_num
+          shift: [0.5gpx, 0.5gpy]
+        - ref: matrix_middle_num
+          shift: [-0.5gpx, 0.5gpy]
+        #- ref: matrix_index_num
+          #shift: [-0.5gpx, 0.5gpy]
+        #- ref: matrix_inner_num
+          #shift: [0, 0]
+        - ref: matrix_inner_num
+          shift: [-0.5gpx, 0.5gpy]
+        - ref: matrix_math_num
+          shift: [-30, 29.9]
+        - ref: thumb_space_mod
+          shift: [-32.66905, -9.5]
+        - ref: thumb_space_mod
+          shift: [14.5, -9.5]
+        #- ref: thumb_space_mod
+          #shift: [14.5,35.80761]
+        - ref: thumb_left_mod
+          shift: [0, -0.5gpy]
+        - ref: thumb_right_mod
+          shift: [0.5gpx, -0.5gpy]
+        #- ref: matrix_index_bottom
+          #shift: [0.5gpx, -0.5gpy]
+        #- ref: matrix_ring_bottom
+          #shift: [-0.5gpx, -0.5gpy]
+        - ref: matrix_pinky_bottom
+          shift: [-0.5gpx, -0.5gpy]
+        - ref: matrix_outer_bottom
+          shift: [0.5gpx, -0.5gpy]
+      fillet: 2
+  combo:
+    - name: board
+    - operation: subtract
+      name: keys
+  #reverse mount LED holes   
+  LEDs: 
+    - what: rectangle
+      size: [3.4, 3]
+      bevel: 0.2
+      operation: add
+      where: true
+      adjust:
+        shift: [0, 5]
+
+  standoff:
+    - what: rectangle
+      size: [5, 5]
+      bevel: 0.2
+      operation: add
+      where: /thumb_left_mod*/
+      adjust:
+        shift: [0, 15]
+
+  LED_holes:
+    - name: standoff
+    - operation: add
+      name: LEDs
+    
+  #board with LED cutouts
+  board_LED:
+    - name: board
+    - operation: subtract
+      name: LED_holes       
+
+
+#mirroredboard:
+  board_mirror:
+    - what: polygon
+      operation: stack
+      points:
+        - ref: mirror_matrix_outer_num
+          shift: [0.5gpx, 0.5gpy]
+        - ref: mirror_matrix_pinky_num
+          shift: [ 0.5gpx, 0.5gpy]
+        - ref: mirror_matrix_middle_num
+          shift: [0.5gpx, 0.5gpy]
+        - ref: mirror_matrix_middle_num
+          shift: [-0.5gpx, 0.5gpy]
+        #- ref: matrix_index_num
+          #shift: [-0.5gpx, 0.5gpy]
+        #- ref: matrix_inner_num
+          #shift: [0, 0]
+        - ref: mirror_matrix_inner_num
+          shift: [-0.5gpx, 0.5gpy]
+        - ref: mirror_matrix_math_num
+          shift: [-30, 29.9]
+        - ref: mirror_thumb_space_mod
+          shift: [-32.66905, -9.5]
+        - ref: mirror_thumb_space_mod
+          shift: [14.5, -9.5]
+        #- ref: thumb_space_mod
+          #shift: [14.5,35.80761]
+        - ref: mirror_thumb_left_mod
+          shift: [0, -0.5gpy]
+        - ref: mirror_thumb_right_mod
+          shift: [0.5gpx, -0.5gpy]
+        #- ref: matrix_index_bottom
+          #shift: [0.5gpx, -0.5gpy]
+        #- ref: matrix_ring_bottom
+          #shift: [-0.5gpx, -0.5gpy]
+        - ref: mirror_matrix_pinky_bottom
+          shift: [-0.5gpx, -0.5gpy]
+        - ref: mirror_matrix_outer_bottom
+          shift: [0.5gpx, -0.5gpy]
+      fillet: 2  
+
+  combo_mirror:
+    - name: board_mirror
+    - operation: subtract
+      name: keys
+
+  
+
+  board_LED_mirror:
+    - name: board_mirror
+    - operation: subtract
+      name: LED_holes
+
+pcbs:
+  lemonshark_right_RGB:
+    template: kicad8
+    outlines:
+      main:
+        outline: board_LED
+    footprints:
+
+      #choc hotswap
+      choc_hotswap:
+        what: choc
+        where: -/^mirror_*/
+        params: 
+          keycaps: true
+          reverse: false
+          hotswap: true
+          from: "{{column_net}}"
+          to: "{{colrow}}"
+        adjust:
+          rotate: 180
+
+      #modified footprint for SMD only diode
+      diode:
+        what: smd
+        where: -/^mirror_*/
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          shift: [-8, 1]
+          rotate: -90
+
+      #fixes the diode where the bottom left mounting hole is
+      #diode_1:
+        #what: smd
+        #where: matrix_index_home
+        #params:
+          #from: "{{colrow}}"
+          #to: "{{row_net}}"
+        #adjust:
+          #shift: [-11, -0.5]
+          #rotate: -90
+
+      nice_nano:
+        what: nice_nano
+        params:
+          orientation: up
+        where:
+          ref: matrix_math_num
+          shift: [-11,19]
+          rotate: 0
+
+      nice_view:
+        what: nice_view
+        params:
+          side: "F"
+          CS: P006
+          MOSI: P017
+          SCK: P020
+          include_traces: false
+        where:
+          ref: matrix_math_top
+          shift: [-19, 0.25cy]
+
+      horizontal_reset:
+        what: EVQPUC
+        params:
+          side: B
+          from: GND
+          to: RST
+        where:
+          - ref: matrix_math_num
+            shift: [-28, 3]
+            rotate: 90
+
+      jstph:
+        what: jstph
+        params:
+          side: B
+          pos: pos
+          neg: GND
+        where:
+          - ref: thumb_space_mod
+            shift: [-20, 0]
+            rotate: 180
+
+      battery_switch:
+        what: slider
+        params:
+            side: B
+            from: pos
+            to: RAW
+        where:
+          ref: matrix_math_num
+          shift: [-27.5, -8]
+          rotate: 90
+
+      LED_switch:
+        what: slider
+        params:
+            side: B
+            from: pos
+            to: RAW
+        where:
+          ref: matrix_math_num
+          shift: [-27.5, -20]
+          rotate: 90
+      #LEDS 
+      rgb:
+        what: rgb_north
+        params:
+          designator: 'LED'
+          side: 'B'
+          din: undefined
+          dout: undefined
+          VCC: VCC
+          GND: GND
+        where: -/^mirror_*/
+        adjust:  
+          #positioning is temporary, idk where the cutouts in the switches are
+          shift: [0, 5]
+      #lemonshark :3
+      front_text: &text
+        what: text
+        where: &textWhere
+            ref: thumb_space_mod
+            shift: [-32.66905, -7]
+        params: &textParams
+            text: lemonshark :3
+            justify: left
+            h_size: 3
+            v_size: 2
+            thickness: 0.4
+
+      #mounting holes
+      #hole_top_left:
+        #what: mountinghole
+        #where:
+          #ref: matrix_inner_num
+          #shift: [0.5cx, -0.5cy]
+      hole_bottom_left:
+        what: mountinghole
+        where:
+          ref: matrix_index_bottom
+          shift: [-0.5cx, 0.5cy]
+      hole_top_right:
+        what: mountinghole
+        where:
+          ref: matrix_outer_num
+          shift: [-0.5cx, -0.5cy]
+      hole_bottom_right:
+        what: mountinghole
+        where:
+          ref: matrix_outer_bottom
+          shift: [-0.5cx, 0.5cy]
+      #hole_thumb:
+        #what: mountinghole
+        #where:
+          #ref: thumb_left_mod
+          #shift: [0.5cx,-0.5cy]
+
+  lemonshark_left_RGB:
+    template: kicad8
+    outlines:
+      main:
+        outline: board_LED_mirror
+    footprints:
+
+      #choc hotswap
+      choc_hotswap:
+        what: choc
+        where: /^mirror_*/
+        params:
+          keycaps: true
+          reverse: false
+          hotswap: true
+          from: "{{column_net}}"
+          to: "{{colrow}}"
+        adjust:
+          rotate: 180
+
+      #modified footprint for SMD only diod
+      diode:
+        what: smd
+        where: /^mirror_*/
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          shift: [8, 1]
+          rotate: 90
+
+      #fixes the diode where the bottom left mounting hole is
+      #diode_1:
+        #what: smd
+        #where: matrix_inner_home
+        #params:
+          #from: "{{colrow}}"
+          #to: "{{row_net}}"
+        #adjust:
+          #shift: [11, 0.5]
+          #rotate: 90
+
+      nice_nano:
+        what: nice_nano
+        params:
+          orientation: up
+        where:
+          ref: mirror_matrix_math_num
+          shift: [-11,19]
+          rotate: 180
+
+      nice_view:
+        what: nice_view
+        params:
+          side: "F"
+          CS: P006
+          MOSI: P017
+          SCK: P020
+          include_traces: false
+        where:
+          ref: mirror_matrix_math_top
+          shift: [-19, 0.25cy]
+
+      horizontal_reset:
+        what: EVQPUC
+        params:
+          side: B
+          from: GND
+          to: RST
+        where:
+          - ref: mirror_matrix_math_num
+            shift: [-28, 3]
+            rotate: 90
+
+      jstph:
+        what: jstph
+        params:
+          side: B
+          pos: pos
+          neg: GND
+        where:
+          - ref: mirror_thumb_space_mod
+            shift: [-20, 0]
+            rotate: 180
+
+      battery_switch:
+        what: slider
+        params:
+            side: B
+            from: pos
+            to: RAW
+        where:
+          ref: mirror_matrix_math_num
+          shift: [-27.5, -8]
+          rotate: 90
+      LED_switch:
+        what: slider
+        params:
+            side: B
+            from: pos
+            to: RAW
+        where:
+          ref: mirror_matrix_math_num
+          shift: [-27.5, -20]
+          rotate: 90
+      #LEDS 
+      rgb:
+        what: rgb_north
+        params:
+          designator: 'LED'
+          side: 'B'
+          din: undefined
+          dout: undefined
+          VCC: VCC
+          GND: GND
+        where: /^mirror_*/
+        adjust:  
+          #positioning is temporary, idk where the cutouts in the switches are
+          shift: [0, 5]
+      #lemonshark :3
+      front_text: &text
+        what: text
+        where: &textWhere
+            ref: mirror_thumb_space_mod
+            shift: [-32.66905, -7]
+        params: &textParams
+            text: lemonshark :3
+            justify: right
+            h_size: 3
+            v_size: 2
+            thickness: 0.4
+
+      #mounting holes
+      #hole_top_left:
+        #what: mountinghole
+        #where:
+          #ref: mirror_matrix_index_num
+          #shift: [-0.5cx, -0.5cy]
+      #hole_bottom_left:
+        #what: mountinghole
+        #where:
+          #ref: mirror_matrix_index_bottom
+          #shift: [-0.5cx, 0.5cy]
+      hole_top_right:
+        what: mountinghole
+        where:
+          ref: mirror_matrix_outer_num
+          shift: [-0.5cx, -0.5cy]
+      hole_bottom_right:
+        what: mountinghole
+        where:
+          ref: mirror_matrix_outer_bottom
+          shift: [-0.5cx, 0.5cy]
+      
