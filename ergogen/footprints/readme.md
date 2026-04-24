@@ -1,5 +1,10 @@
-You will need to import the following footprints into ergogen and rename them so that the footprint name is the same as the file name. 
+You will need to import the following footprints into Ergogen and rename them so that the footprint name is the same as the file name. 
 
+---
 ## Note:
 
-Some of these render in KiCanvas, some do not, this is a limitation of some being built for KiCAD 5. I will try to make sure that as many as possible are on KiCAD 8.
+These footprints _should_ all render in KiCavas, I've updated them all to KiCAD 8.
+
+Additionally, the level shift was a custom footprint I designed in KiCAD, I've since lost the footprint as my laptop's SSD decided to die.
+
+(I plan on either not requiring the level shifter or writing my own Ergogen footprint for it for V2)
