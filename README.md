@@ -31,6 +31,11 @@ a wireless split keyboard with per-key RGB and nice!view displays
 - extra-large battery
 
 ---
+## ZMK config
+
+need to clean up the [repo](https://github.com/stardustArc/zmk-config-lemonsharkv2) but here it is
+
+---
 ## V1 BOM
 
 | Part | Count | Desc | Source |
