@@ -6,3 +6,5 @@ If you want to build your own lemonshark board, please use the V2 PCB (coming so
 
 **The build guide uses a V1 PCB** <- build guide coming soon
 this is just because i don't have a V2 PCB on hand, and probably won't for a while. However, if and when I do obtain a V2 PCB, i will create another build guide for V2.
+
+UPDATE: V1.1 PCBs uploaded, these have replaced V1. This eliminates bodges, but is still limited to running choc V1 only and LEDs through a level shifter
